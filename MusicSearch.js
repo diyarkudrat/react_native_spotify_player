@@ -29,7 +29,7 @@ class MusicSearch extends Component {
                 songs: []
             },
             () => {
-                
+                this.loadNextPage();
             }
         );
     }
