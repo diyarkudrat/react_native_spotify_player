@@ -10,6 +10,7 @@ npm-debug.*
 web-build/
 web-report/
 spotify_token.js
+config.js
 
 # macOS
 .DS_Store
