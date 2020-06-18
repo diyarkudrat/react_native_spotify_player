@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { SafeAreaView } from "react-native";
+import { SafeAreaView, ActivityIndicator } from "react-native";
 import SearchBar from './SearchBar';
 import spotify_search from "./api/spotify_search";
 
@@ -103,9 +103,13 @@ class MusicSearch extends Component {
         });
     }
 
+    async handleEndReached() {
+        await this.loadNextPage();
+    }
+
 
     render() {
-        const { query } = this.state;
+        const { query, songs, isFetching } = this.state;
         return (
             <Container>
                 <SafeAreaView>
@@ -115,6 +119,14 @@ class MusicSearch extends Component {
                         text={query}
                     />
                     <SongQueue>
+                    {isFetching && songs.length === 0 ? (
+                        <ActivityIndicator />
+                    ) : (
+                        <Listing
+                            items={songs}
+                            onEndReached={() => this.handleEndReached()}
+                        />
+                    )}
 
                     </SongQueue>
                 </SafeAreaView>

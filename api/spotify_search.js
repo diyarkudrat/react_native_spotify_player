@@ -6,25 +6,27 @@ export default async ({
     q,
     spotify_token,
 }) => {
-        const uri = `${apiPrefix}/search?type=album,artist,track,playlist&limit=${limit}&offset=${offset}&q=${encodeUriComponent(q)}*`;
+        const uri = `${apiPrefix}/search?type=album,artist,track,playlist&limit=${limit}&offset=${offset}&q=${encodeURIComponent(q)}`;
         console.log('Begin Search, uri=', uri, 'token=', spotify_token);
 
         const res = await fetch(uri, {
             method: 'GET',
             headers: {
-                Authorization: `Bearer Token: ${spotify_token}`,
-            }
+                Authorization: `Bearer ${spotify_token}`,
+            },
+            mode: 'cors',
         });
 
         const json = await res.json;
+        console.log(res.json)
 
-        if (!res.json) {
+        if (!res.ok) {
             return [];
         }
 
         const {
             tracks: {
-                items,
+                items
             }
         } = json;
 

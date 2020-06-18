@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SearchBar } from 'react-native-paper';
+import { Searchbar } from 'react-native-paper';
 
 export default class MyComponent extends Component {
     constructor({ text }) {
