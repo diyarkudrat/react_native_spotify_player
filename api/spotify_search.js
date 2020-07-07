@@ -18,7 +18,7 @@ export default async ({
         });
 
         const json = await res.json;
-        console.log(res.json)
+        console.log('search got json', json)
 
         if (!res.ok) {
             return [];

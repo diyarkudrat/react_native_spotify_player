@@ -1,11 +1,14 @@
 import { Component } from "react";
 import React from 'react';
-import { SafeAreaView, ActivityIndicator } from "react-native";
+import { SafeAreaView, ActivityIndicator, Text, Linking } from "react-native";
 import styled from 'styled-components/native';
 import SearchBar from './SearchBar';
 import Listing from './Listing';
 import spotify_search from "./api/spotify_search";
 import spotify_token from './api/spotify_token';
+import { authEndpoint, clientId, redirectUri, scopes } from "./api/config";
+
+
 
 const Container = styled.View`
 	height: 100%;
@@ -27,10 +30,10 @@ class MusicSearch extends Component {
         this.state = {
             songs: [],
             offset: 0,
-            query: 'Revenge',
+            query: 'Turks',
             isFetching: false,
             isEmpty: false,
-            spotify_token: "BQBZjME0qCO-oIs5_82xzyN_xq0_Nk8ZWuBQOHDkHkPZZp7lddWFqMuq-_RL1cyIQ9QZmFBA7SkfkJgurDOt8ZzE2qdurMV3T4JNbhpw-OSse6Xpn3KWT0AKQNV6wEY_krWO5TuqeMGtZESz",
+            spotify_token: "BQAduBri-Ys-MZpVXJiQBI2BKVmWXv0kYjHcCt_1LgnNcEEdNzx6GEWL4ztMZBWVdtlhYgK8FSkuN1nJHQvH5OQ1rwizbUFsOkV0_GJJJ31BAdDHLgjndAcjpi4uxtYP5O_o7GaBTQf2JlTcAvSjH2khENxmf1JLaoiz9yW9oz6kFRp6v-nhiIpPA5_hHjjJz_4kfhxh7pUWJH34F1O5qvcjdIqfyUpdji0j10S4q94woFwu6EnU8xY9Skl1QhdaB-09wKVCJmfGgUl0NA",
             isTokenFetching: false,
         };
     }
@@ -117,6 +120,12 @@ class MusicSearch extends Component {
         return (
             <Container>
                 <SafeAreaView>
+                <Text style={{color: 'blue'}}
+                    onPress={() => Linking.openURL(`${authEndpoint}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scopes.join(
+                        "%20"
+                    )}&response_type=token&show_dialog=true`)}>
+                Login to Spotify
+                </Text>
 
                     <SearchBar
                         onChange={text => this.handleSearchChange(text)}
